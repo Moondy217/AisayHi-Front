@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Button, Form, Row } from 'react-bootstrap';
 import styles from '../../css/Login.module.css';
 
 function Login() {
@@ -10,7 +10,7 @@ function Login() {
     userpwd: ''
   });
 
-  // const history = useHistory(); 오류 나서 주석 처리
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     const form = event.currentTarget;
@@ -21,34 +21,34 @@ function Login() {
       return;
     }
 
-    // 로그인 처리 및 서버에 데이터 전송, api 확인!!!!!
+    // 로그인 처리 및 서버에 데이터 전송
     try {
-        const response = await fetch('/api/login', {
+      const response = await fetch('http://localhost:8000/api/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
-        });
+      });
 
-        if (response.ok) {
-            // 로그인 성공 시 메인 페이지로 이동
-            // history.push('/');
-          } else {
-            console.error('로그인 실패:', response.status);
-          }
-        } catch (error) {
-          console.error('네트워크 오류:', error);
-        }
-      };
+      if (response.ok) {
+        // 로그인 성공 시 메인 페이지로 이동
+        navigate('/');
+      } else {
+        console.error('로그인 실패:', response.status);
+      }
+    } catch (error) {
+      console.error('네트워크 오류:', error);
+    }
+  };
 
-      const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({
-          ...formData,
-          [name]: value
-        });
-      };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -65,7 +65,7 @@ function Login() {
                 required
                 type="text"
                 name="login_id"
-                value={formData.user_id}
+                value={formData.login_id}
                 onChange={handleChange}
                 placeholder="아이디 입력"
                 className={styles.formId}

@@ -4,36 +4,40 @@ import { Navbar, Container, Nav} from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
-import SubMenu from './pages/main/SubMenu';
+import SubMenu from './pages/main/subMenu';
+import MainGreyBox from './pages/main/mainGreyBox';
 
 function App() {
 
   const navigate = useNavigate();
-  const [modal, setModal] = useState(false);
+  const [modal, setModal] = useState(false); // 전체 카테고리 상세페이지 모달 창
 
   return (
-    <div className='border'>
-      <Container className="customNav">
-        <Navbar variant="dark" expand="lg" data-bs-theme="dark">
-          <Navbar.Brand href="/">The Porter Market</Navbar.Brand>
-          <Nav className="ms-auto">
-            <Nav.Link onClick={() => { navigate('/login') }}>로그인</Nav.Link>
-            <Nav.Link onClick={() => { navigate('/signup') }}>회원가입</Nav.Link>
-          </Nav>
-        </Navbar>
-        <Navbar variant="dark" expand="lg" data-bs-theme="dark">
-          <Navbar.Brand onClick={() => {setModal(!modal) }}>전체 카테고리</Navbar.Brand>
-          <Nav className="ms-auto">
-          </Nav>
-        </Navbar>
-      </Container>
+    <div>
+      <div className='customNav'>
+        <Container>
+          <Navbar expand="lg" data-bs-theme="dark">
+            <Navbar.Brand href="/">The Porter Market</Navbar.Brand>
+            <Nav className="ms-auto">
+              <Nav.Link onClick={() => { navigate('/login') }}>로그인</Nav.Link>
+              <Nav.Link onClick={() => { navigate('/signup') }}>회원가입</Nav.Link>
+            </Nav>
+          </Navbar>
+          <Navbar expand="lg" data-bs-theme="dark">
+            <Navbar.Brand onClick={() => {setModal(!modal) }}>전체 카테고리</Navbar.Brand>
+            <Nav className="ms-auto">
+            </Nav>
+          </Navbar>
+        </Container>
+      </div>
 
+    {/* 상세 카테고리 모달 창 */}
+    {
+      modal == true ? <SubMenu/> : null
+    }
 
-      {/* 상세 카테고리 */}
-      {
-          modal == true ? <SubMenu/> : null
-      }
-
+    {/* 메인 박스 */}
+    <MainGreyBox />
 
       <div>
         <Routes>
