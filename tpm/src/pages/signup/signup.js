@@ -35,7 +35,7 @@ function Singup() {
 
       // 회원가입 API (주소 확인!!)
       try {
-        const response = await fetch('http://localhost:8000/api/signup/', {
+        const response = await fetch('http://localhost:8000/pm/signup/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
