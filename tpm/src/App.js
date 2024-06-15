@@ -22,7 +22,14 @@ function App() {
       <div className='customNav'>
         <Container>
           <Navbar expand="lg" data-bs-theme="dark">
-            <Navbar.Brand href="/">The Porter Market</Navbar.Brand>
+            <Navbar.Brand href="/">
+              <img
+                src={process.env.PUBLIC_URL + '/img/tpmLogo.svg'}
+                width="100"
+                height="50"
+                alt="TPM Logo"
+              />
+        </Navbar.Brand>
             <Nav className="ms-auto">
               <Nav.Link onClick={() => { navigate('/login') }}>로그인</Nav.Link>
               <Nav.Link onClick={() => { navigate('/signup') }}>회원가입</Nav.Link>

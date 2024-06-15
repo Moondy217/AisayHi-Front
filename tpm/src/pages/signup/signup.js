@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Button, Col, Form, Row } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Button, Form, Row } from 'react-bootstrap';
 import styles from '../../css/Signup.module.css';
 
 function Singup() {
@@ -10,6 +11,8 @@ function Singup() {
     userpwd: '',  // 비밀번호
     userpwdConfirm: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -49,6 +52,7 @@ function Singup() {
 
         if (response.ok) {
           alert('회원가입 성공');
+          navigate('/login'); // 회원가입 성공 시 로그인 페이지로 이동
         } else {
           alert('회원가입 실패');
         }

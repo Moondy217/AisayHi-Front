@@ -1,24 +1,44 @@
 .greyBox {
     height: 230px;
-    background-color: #D9D9D9;
+    background-color: rgba(217, 217, 217, 0.5);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.greySmallBox {
-    display: inline-block;
-    flex-direction: row;
-    border-radius: 13px;
-    border: 1px solid #3B6EF1;
-    width: 135px;
-    height: 125px;
-    margin: 0 70px;
-    flex-shrink: 0;
+.outerBox {
+    height: 230px;
+    display: flex;
+    justify-content: center;
 }
 
-.innerBox {
-    border: 1px solid red;
-    text-align: center;
+
+.horizontalScroll {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
 }
+
+  .innerBox {
+    cursor: pointer;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    margin: 0 50px;
+  }
+  
+  .innerBox img {
+    justify-content: center;
+    border: 3px solid #3B6EF1;
+    background-color: white;
+    border-radius: 13px;
+    width: 100px;
+    height: 100px;
+    margin-top: 20px;
+  }
+  
+  .innerBox p {
+    margin-top: 15px;
+    font-size: 17px;
+  }
