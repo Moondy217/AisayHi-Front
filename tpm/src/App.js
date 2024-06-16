@@ -1,18 +1,18 @@
 import './App.css';
 import { useState } from 'react';
-import { Navbar, Container, Nav, Button, Form, FormControl } from 'react-bootstrap';
+import { Navbar, Container, Nav, } from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
 import SubMenu from './pages/main/subMenu';
-import MainGreyBox from './pages/main/mainGreyBox';
+import SubGreyBox from './pages/main/subGreyBox';
 import SearchBar from './pages/main/searchBar';
 
 function App() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false); // 전체 카테고리 상세페이지 모달 창
 
-  // 전체 카테고리를 클릭하면 모달 창을 토글하고, MainGreyBox를 숨깁니다.
+  // 전체 카테고리를 클릭하면 모달 창을 토글하고, MainGreyBox를 숨긴다
   const toggleModal = () => {
     setModal(!modal);
   };
@@ -36,7 +36,11 @@ function App() {
             </Nav>
           </Navbar>
           <Navbar expand="lg" data-bs-theme="dark">
-            <Navbar.Brand onClick={toggleModal} style={{ cursor: 'pointer' }}>전체 카테고리</Navbar.Brand>
+            <Navbar.Brand onClick={toggleModal} style={{ cursor: 'pointer' }}>
+            
+            {/* 아이콘 <TfiMenu style={{ height: '36.4px'}}/> */}
+            
+            전체 카테고리</Navbar.Brand>
 
             <span className="ms-auto">
                 <Navbar.Brand className="ms-auto-marginRight">전체 상품 보기</Navbar.Brand>
@@ -53,7 +57,7 @@ function App() {
       </div>
 
       {/* 모달 창 또는 MainGreyBox를 렌더링 */}
-      {modal ? <SubMenu /> : <MainGreyBox />}
+      {modal ? <SubMenu /> : <SubGreyBox />}
 
       <div>
         <Routes>
