@@ -4,6 +4,7 @@ import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess, logoutSuccess } from './store/actions/authActions';
+import MainPage from './pages/main/mainPage';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
 import SubMenu from './pages/main/subMenu';
@@ -98,7 +99,7 @@ function App() {
 
       <div>
         <Routes>
-          <Route path="/" element={<div>메인페이지임</div>} />
+          <Route path="/" element={<MainPage />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="*" element={<div>없는 페이지</div>} />
