@@ -9,6 +9,7 @@ import Signup from './pages/signup/signup';
 import SubMenu from './pages/main/subMenu';
 import SubGreyBox from './pages/main/subGreyBox';
 import SearchBar from './pages/main/searchBar';
+import Footer from './pages/main/footer';
 
 function App() {
   const navigate = useNavigate();
@@ -103,6 +104,8 @@ function App() {
           <Route path="*" element={<div>없는 페이지</div>} />
         </Routes>
       </div>
+
+      <Footer/>
     </div>
   );
 }
