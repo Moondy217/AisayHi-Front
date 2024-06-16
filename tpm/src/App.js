@@ -1,7 +1,9 @@
 import './App.css';
-import { useState } from 'react';
-import { Navbar, Container, Nav, } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { loginSuccess, logoutSuccess } from './store/actions/authActions';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
 import SubMenu from './pages/main/subMenu';
@@ -12,9 +14,31 @@ function App() {
   const navigate = useNavigate();
   const [modal, setModal] = useState(false); // 전체 카테고리 상세페이지 모달 창
 
+  // 리덕스 상태 및 디스패치 설정
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const currentUser = useSelector(state => state.auth.user); // 현재 로그인한 사용자 정보
+  const dispatch = useDispatch();
+
+  // 페이지 로드 시 로그인 상태 체크
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // 토큰이 있으면 로그인 상태로 설정
+      dispatch(loginSuccess()); // 로그인 액션 디스패치
+    }
+  }, [dispatch]);
+
   // 전체 카테고리를 클릭하면 모달 창을 토글하고, MainGreyBox를 숨긴다
   const toggleModal = () => {
     setModal(!modal);
+  };
+
+  // 로그아웃 처리 함수
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // 토큰 삭제
+    dispatch(logoutSuccess()); // 로그아웃 액션 디스패치
+    navigate('/'); // 메인 페이지로 이동
+    alert('로그아웃 되었습니다.');
   };
 
   return (
@@ -30,9 +54,21 @@ function App() {
                 alt="TPM Logo"
               />
         </Navbar.Brand>
-            <Nav className="ms-auto">
-              <Nav.Link onClick={() => { navigate('/login') }}>로그인</Nav.Link>
-              <Nav.Link onClick={() => { navigate('/signup') }}>회원가입</Nav.Link>
+        <Nav className="ms-auto">
+              <div className="d-flex align-items-center">
+                {isLoggedIn ? (
+                  <>
+                    <span className="me-2">로그인 중{currentUser?.login_id}</span>
+                    <Nav.Link onClick={handleLogout} className="me-2">로그아웃</Nav.Link>
+                    <Nav.Link href="/cart">장바구니</Nav.Link>
+                  </>
+                ) : (
+                  <>
+                    <Nav.Link onClick={() => navigate('/login')}>로그인</Nav.Link>
+                    <Nav.Link onClick={() => navigate('/signup')}>회원가입</Nav.Link>
+                  </>
+                )}
+              </div>
             </Nav>
           </Navbar>
           <Navbar expand="lg" data-bs-theme="dark">

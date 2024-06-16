@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Row } from 'react-bootstrap';
 import styles from '../../css/Login.module.css';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../store/actions/authActions';
 
 function Login() {
   const [validated, setValidated] = useState(false); // 유효성 검사
@@ -10,13 +12,14 @@ function Login() {
     userpwd: ''
   });
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
-    const form = event.currentTarget;
     event.preventDefault();
     event.stopPropagation();
-
+    
+    const form = event.currentTarget;
     if (form.checkValidity() === false) {
       setValidated(true);
       return;
@@ -36,8 +39,8 @@ function Login() {
         const data = await response.json();
         // 로그인 성공 시 토큰 저장 및 메인 페이지로 이동
         localStorage.setItem('token', data.token);
+        dispatch(loginSuccess(data.user));
         alert('로그인 성공');
-        console.error('로그인 성공');
         navigate('/');
       } else {
         const errorData = await response.json();
