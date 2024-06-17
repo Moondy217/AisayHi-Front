@@ -30,18 +30,26 @@ function Login() {
       const response = await fetch('http://localhost:8000/pm/login/', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         const data = await response.json();
-        // 로그인 성공 시 토큰 저장 및 메인 페이지로 이동
-        localStorage.setItem('token', data.token);
-        dispatch(loginSuccess(data.user));
-        alert('로그인 성공');
-        navigate('/');
+        console.log('API response data:', data); // Log API 데이터 출력
+        
+        // 로그인 성공 메시지와 유저 데이터 확인
+        if (data.message === 'Login successful' && data.user) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('currentUser', JSON.stringify(data.user));
+          dispatch(loginSuccess(data.user));
+          alert(`로그인 성공 ${data.user.login_id}님 환영합니다`);
+          navigate('/');
+        } else {
+          console.error('로그인 실패: 서버 응답 오류');
+          alert('로그인 실패: 서버 응답 오류');
+        }
       } else {
         const errorData = await response.json();
         console.error('로그인 실패:', errorData);
@@ -53,6 +61,7 @@ function Login() {
     }
   };
 
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -60,6 +69,7 @@ function Login() {
       [name]: value
     });
   };
+
 
   return (
     <div className={styles.container}>

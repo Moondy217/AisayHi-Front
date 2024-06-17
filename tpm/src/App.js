@@ -1,6 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess, logoutSuccess } from './store/actions/authActions';
@@ -22,11 +22,13 @@ function App() {
   const dispatch = useDispatch();
 
   // 페이지 로드 시 로그인 상태 체크
+  // 페이지 로드 시 로그인 상태 체크
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) {
-      // 토큰이 있으면 로그인 상태로 설정
-      dispatch(loginSuccess()); // 로그인 액션 디스패치
+    const currentUserFromLocalStorage = localStorage.getItem('currentUser');
+    if (token && currentUserFromLocalStorage) {
+      const user = JSON.parse(currentUserFromLocalStorage);
+      dispatch(loginSuccess(user)); // Redux에 사용자 정보 저장
     }
   }, [dispatch]);
 
@@ -42,6 +44,12 @@ function App() {
     navigate('/'); // 메인 페이지로 이동
     alert('로그아웃 되었습니다.');
   };
+
+  // useEffect를 사용하여 currentUser가 변경될 때 콘솔에 출력
+  useEffect(() => {
+    console.log('Current user:', currentUser);
+  }, [currentUser]);
+
 
   return (
     <div>
@@ -60,7 +68,11 @@ function App() {
               <div className="d-flex align-items-center">
                 {isLoggedIn ? (
                   <>
-                    <span className="me-2">로그인 중{currentUser?.login_id}</span>
+                    <Nav.Link href="/mypage">
+                      {currentUser && (
+                        <span>{currentUser.login_id} 님</span>
+                      )}
+                    </Nav.Link>
                     <Nav.Link onClick={handleLogout} className="me-2">로그아웃</Nav.Link>
                     <Nav.Link href="/cart">장바구니</Nav.Link>
                   </>
