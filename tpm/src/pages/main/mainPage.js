@@ -36,6 +36,7 @@ function MainPage() {
 
     const bannerImg = [
         `${process.env.PUBLIC_URL}/img/main/banner/배너1.svg`,
+        `${process.env.PUBLIC_URL}/img/main/banner/배너3.svg`,
         `${process.env.PUBLIC_URL}/img/main/banner/배너2.svg`
       ];
 
@@ -67,7 +68,7 @@ function MainPage() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 4000,
+        autoplaySpeed: 3000,
         prevArrow: <PrevArrow />,
         nextArrow: <NextArrow />
       };
