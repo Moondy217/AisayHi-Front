@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -22,28 +22,39 @@ function App() {
   const currentUser = useSelector(state => state.auth.user); // 현재 로그인한 사용자 정보
   const dispatch = useDispatch();
 
-  // 페이지 로드 시 로그인 상태 체크
-  // 페이지 로드 시 로그인 상태 체크
+
+// 페이지 로드 시 로그인 상태 체크
+
+  // 로그아웃 처리 함수
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('token'); // 토큰 삭제
+    localStorage.removeItem('currentUser'); // 사용자 정보 삭제
+    dispatch(logoutSuccess()); // 로그아웃 액션 디스패치
+    navigate('/'); // 메인 페이지로 이동
+    alert('로그아웃 되었습니다.');
+  }, [dispatch, navigate]);
+
+  // 페이지 로드 시 로그인 상태 체크 및 1시간 후 로그아웃 설정
   useEffect(() => {
     const token = localStorage.getItem('token');
     const currentUserFromLocalStorage = localStorage.getItem('currentUser');
     if (token && currentUserFromLocalStorage) {
       const user = JSON.parse(currentUserFromLocalStorage);
       dispatch(loginSuccess(user)); // Redux에 사용자 정보 저장
+
+      // 1시간 후 로그아웃
+      const logoutTimer = setTimeout(() => {
+        handleLogout();
+      }, 360000); // 1시간
+
+      return () => clearTimeout(logoutTimer);
     }
-  }, [dispatch]);
+  }, [dispatch, handleLogout]);
+
 
   // 전체 카테고리를 클릭하면 모달 창을 토글하고, MainGreyBox를 숨긴다
   const toggleModal = () => {
     setModal(!modal);
-  };
-
-  // 로그아웃 처리 함수
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // 토큰 삭제
-    dispatch(logoutSuccess()); // 로그아웃 액션 디스패치
-    navigate('/'); // 메인 페이지로 이동
-    alert('로그아웃 되었습니다.');
   };
 
   // useEffect를 사용하여 currentUser가 변경될 때 콘솔에 출력
