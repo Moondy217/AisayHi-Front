@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { loginSuccess, logoutSuccess } from './store/actions/authActions';
 import MainPage from './pages/main/mainPage';
+import Detail from './pages/product/detail';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
 import SubMenu from './pages/main/subMenu';
@@ -112,6 +113,7 @@ function App() {
       <div>
         <Routes>
           <Route path="/" element={<MainPage />} />
+          <Route path="/product/:id" element={<Detail />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="*" element={<div>없는 페이지</div>} />
