@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { Dropdown, Nav } from 'react-bootstrap';
 import styles from '../../css/Detail.module.css';
 
 const products = [
@@ -51,23 +51,19 @@ const Detail = () => {
                     </p>
 
                     <div>
-                        <Dropdown data-bs-theme="dark">
-                            <Dropdown.Toggle className={styles.customDropdown} id="" variant="secondary">
+                        <Dropdown>
+                            <Dropdown.Toggle className={styles.customDropdown} id="">
                             상품을 선택해 주세요
                             </Dropdown.Toggle>
-
                             <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1" active>
-                                Action
-                            </Dropdown.Item>
                             <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
 
                         <div className="d-inline-flex">
                             <Dropdown className="me-2">
-                                <Dropdown.Toggle className={styles.customDropdownCart} id="dropdown1" variant="secondary">
+                                <Dropdown.Toggle className={styles.customDropdownCart} id="dropdown1">
                                 장바구니
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
@@ -77,7 +73,7 @@ const Detail = () => {
                             </Dropdown>
 
                             <Dropdown>
-                                <Dropdown.Toggle className={styles.customDropdownPay} id="" variant="secondary">
+                                <Dropdown.Toggle className={styles.customDropdownPay} id="">
                                 바로구매
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
@@ -85,18 +81,25 @@ const Detail = () => {
                                 <Dropdown.Item href="#/action-4">Another action 2</Dropdown.Item>
                                 </Dropdown.Menu>
                             </Dropdown>
-                            </div>
-
-
-
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div>얍</div>
 
-
-
+            <div className={styles.tabBox}>
+                <Nav justify variant="tabs" defaultActiveKey="/home">
+                    <Nav.Item>
+                        <Nav.Link className="tabItemBox" eventKey="link-1">상품 설명</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link className="tabItemBox" eventKey="link-2">리뷰 남기기</Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link className="tabItemBox" eventKey="link-3">배송/교환/환불</Nav.Link>
+                    </Nav.Item>
+                </Nav>
+            </div>
         </div>
     );
 };

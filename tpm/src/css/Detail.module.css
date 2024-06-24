@@ -93,3 +93,46 @@
     width: 250px;
     height: 60px;
 }
+
+.customDropdown:hover {
+    color: #707070;
+    background-color: #f8f9fa;
+    border: 1px solid #707070;
+}
+.customDropdownCart:hover {
+    color: #FFFFFF;
+    background-color: #6A90F2;
+}
+.customDropdownPay:hover {
+    color: #FFFFFF;
+    background-color: #3B6EF1;
+}
+
+
+.nav-tabs {
+    color: #000;
+    border-bottom: none;
+}
+
+/* Style the tab links */
+.nav-tabs .nav-link {
+    border: none;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-tabs .nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+}
+
+.tabBox {
+    margin: 50px 100px 0px 100px;
+    border: 1px solid #3B6EF1;
+    border-radius: 13px;
+    height: 120px;
+}
