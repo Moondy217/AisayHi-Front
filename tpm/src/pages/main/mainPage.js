@@ -7,11 +7,25 @@ import "slick-carousel/slick/slick-theme.css";
 
 // 넘기기 버튼
 const PrevArrow = (props) => {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <div
-        className={`${className} ${styles.customArrow}`}
-        style={{ ...style, display: 'block', left: '10px' }}
+        className={styles.customArrow}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'transparent',
+          fontSize: '100px',
+          fontWeight: 'bold',
+          color: '#3B6EF1',
+          left: '-50px',
+          cursor: 'pointer',
+          zIndex: 1,
+          position: 'absolute',
+          top: '50%', // 수직 가운데 정렬
+          transform: 'translateY(-50%)',
+        }}
         onClick={onClick}
       >
         &lt;
@@ -20,11 +34,25 @@ const PrevArrow = (props) => {
   }
   
   const NextArrow = (props) => {
-    const { className, style, onClick } = props;
+    const { onClick } = props;
     return (
       <div
-        className={`${className} ${styles.customArrow}`}
-        style={{ ...style, display: 'block', right: '10px' }}
+        className={styles.customArrow}
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'transparent',
+          fontSize: '100px',
+          fontWeight: 'bold',
+          color: '#3B6EF1',
+          right: '-50px',
+          cursor: 'pointer',
+          zIndex: 1,
+          position: 'absolute',
+          top: '50%', // 수직 가운데 정렬
+          transform: 'translateY(-50%)',
+        }}
         onClick={onClick}
       >
         &gt;
